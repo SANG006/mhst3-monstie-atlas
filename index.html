@@ -480,11 +480,16 @@ function battleTeam(enemy){
  '<p><a href="'+esc(teamLink)+'">ดูทีม 6 ช่องและตัวเลือกคู่หู ↗</a></p>';
 }
 
+const battlePhaseThai={"Normal":"ปกติ","Exposed":"เปิดช่องโหว่","Large Mudbulb":"ก้อนโคลนขนาดใหญ่","Abyssal Charge":"สะสมพลังห้วงลึก","Airborne":"บินอยู่","Balancing":"ทรงตัว","Balancing (Storing Powder)":"ทรงตัวและสะสมผง","Battle Shroud":"ห่อหุ้มพลังต่อสู้","Blightstone Protection":"หินผลึกคุ้มกัน","Blightstone Unleashed":"ปลดปล่อยพลังหินผลึก","Blood Rite Active":"พิธีโลหิตทำงาน","Bolt":"สายฟ้า","Bubble Mantle":"ห่อหุ้มฟอง","Bubble Mantle (Slippery)":"ห่อหุ้มฟองลื่น","Burrowed":"มุดดิน","Camouflaged":"พรางตัว","Condense Heat":"รวมความร้อน","Dragon Mantle":"ห่อหุ้มพลังมังกร","Dragon Shroud":"ปกคลุมด้วยพลังมังกร","Electric Charge":"สะสมประจุไฟฟ้า","Electrify":"ปล่อยกระแสไฟฟ้า","Enraged":"โกรธ","Enraged (Airborne)":"โกรธขณะบิน","Enraged (Frost Blade)":"โกรธและมีคมดาบน้ำแข็ง","Enraged (Frost Knuckles)":"โกรธและมีหมัดน้ำแข็ง","Freezing Fog Mantle":"ห่อหุ้มหมอกเยือกแข็ง","Frenzied":"คลุ้มคลั่ง","Fulgurite Mantle":"ห่อหุ้มผลึกสายฟ้า","Hellfireblight Critical":"ไฟนรกถึงจุดวิกฤต","Hellfireblight Mantle":"ห่อหุ้มไฟนรก","High-Voltage Charge":"สะสมประจุแรงสูง","Ice Mantle":"ห่อหุ้มน้ำแข็ง","Invading":"รุกราน","Lava Mantle":"ห่อหุ้มลาวา","Mind Connection":"เชื่อมต่อจิต","Moss Mantle":"ห่อหุ้มมอส","Mud Mantle":"ห่อหุ้มโคลน","No Shell":"ไร้เปลือก","No Web":"ไร้ใย","Open Mouth":"อ้าปาก","Overheated":"ร้อนจัด","Overheated (Tail)":"หางร้อนจัด","Overheated (Throat)":"ลำคอร้อนจัด","Poison Active (Crunch)":"พิษทำงานขณะขบกัด","Poison Active (Munch)":"พิษทำงานขณะเคี้ยว","Rock Mantle":"ห่อหุ้มหิน","Rock Prep":"เตรียมหิน","Shell (Seashell)":"สวมเปลือกหอย","Shell (Skull)":"สวมกะโหลก","Sleep":"หลับ","Slime Active":"เมือกทำงาน","Slime Depleted":"เมือกหมด","Snow Mantle":"ห่อหุ้มหิมะ","Starving":"หิวโหย","Stuffed":"อิ่มเต็มที่","Thunder Mantle":"ห่อหุ้มสายฟ้า","Thunder Supercharge":"อัดประจุสายฟ้าขั้นสูง","Water Depleted":"น้ำหมด","Web Mantle (Cocoon)":"ห่อหุ้มใยรังไหม","Web Mantle (Legs)":"ห่อหุ้มใยที่ขา","Wind Mantle":"ห่อหุ้มลม"};
+function battlePhaseLabel(phase){
+ return battlePhaseThai[phase]?battlePhaseThai[phase]+' ('+phase+')':phase;
+}
+
 function battleCard({enemy,index},open){
  const {name,kind,locations,phases,parts,tip}=enemy;
  const phaseHtml=phases.map(([phase,type])=>{
   const counter=battleCounters[type];
-  return '<div class="battle-phase" data-counter="'+counter+'"><span>'+esc(phase==='Normal'?'ปกติ':phase)+'</span>'+
+  return '<div class="battle-phase" data-counter="'+counter+'"><span>'+esc(battlePhaseLabel(phase))+'</span>'+
    '<span class="battle-move">'+tagSymbol(type)+'<span>ศัตรูใช้ '+esc(type)+'</span></span>'+
    '<strong class="battle-move" data-type="'+esc(counter)+'">'+tagSymbol(counter)+'<span>สวนด้วย '+counter+'</span></strong></div>';
  }).join('');
